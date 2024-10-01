@@ -18,7 +18,17 @@ public class Grid extends JPanel implements ActionListener {
         
         setPreferredSize(new Dimension(cols * cellSize, rows * cellSize));
         if(customStart){
-            //ADD YOUR INTIALIZATION HERE
+            for(int k = 0; k < rows; k++){
+                for(int m = 0; m < cols; m++) {
+                    if((k + m) % 2 == 0) {
+                        this.grid[k][m] = 1;
+                    }
+                    else {
+                        this.grid[k][m] = 0;
+                    }
+                    
+                }
+            }
         }else if(randomStart){
             //initialize grid to random values:
             for(int i = 0; i < rows;i++){
@@ -66,12 +76,308 @@ public class Grid extends JPanel implements ActionListener {
     //ALL YOUR CODE GOES HERE
     public void nextGeneration() {
         //1 Create a new temporary new array to store the values of the next generation
-
+int[][]tempGrid = new int[rows][cols];
         //2 Visit every cell in the new temporary grid. Check the number of neighboring cells, and based on the rules determine whether the cell will be alive or dead.
         //Watch out for edge cases!
-
+        for (int row = 0; row <= (tempGrid[0].length - 1); row++) {
+            for (int col = 0; col < tempGrid.length; col++) {
+                if((row == 0) && (col == 0)) {
+                    int topLeft = 0;
+                        if(grid[row + 1][col] == 1){
+                            topLeft++;
+                        }
+                        if(grid[row + 1][col + 1] == 1) {
+                            topLeft++;
+                        }
+                        if(grid[row][col + 1] == 1) {
+                            topLeft++;
+                        }
+                        if(grid[row][col] == 1) {
+                            if((topLeft == 2) || (topLeft == 3 )) {
+                                tempGrid[row][col] = 1;
+                            }
+                            else{
+                                tempGrid[row][col] = 0;
+                            }
+                        }
+                        if(grid[row][col] == 0) {
+                            if(topLeft == 3 ) {
+                                tempGrid[row][col] = 1;
+                            }
+                            else{
+                                tempGrid[row][col] = 0;
+                            }
+                        }
+                }
+            else if ((row == 0) && (col == (this.cols - 1))) {
+                    int topRight = 0;
+                        if(grid[row + 1][col] == 1){
+                            topRight++;
+                        }
+                        if(grid[row + 1][col - 1] == 1) {
+                            topRight++;
+                        }
+                        if(grid[row][col - 1] == 1) {
+                            topRight++;
+                        }
+                        if(grid[row][col] == 1) {
+                            if((topRight == 2) || (topRight == 3 )) {
+                                tempGrid[row][col] = 1;
+                            }
+                            else{
+                                tempGrid[row][col] = 0;
+                            }
+                        }
+                        if(grid[row][col] == 0) {
+                            if(topRight == 3 ) {
+                                tempGrid[row][col] = 1;
+                            }
+                            else{
+                                tempGrid[row][col] = 0;
+                            }
+                        }
+                }
+            else if ((row == (this.rows - 1)) && (col == 0)) {
+                    int bottomLeft = 0;
+                    if(grid[row - 1][col] == 1){
+                        bottomLeft++;
+                    }
+                    if(grid[row - 1][col + 1] == 1) {
+                        bottomLeft++;
+                    }
+                    if(grid[row][col + 1] == 1) {
+                        bottomLeft++;
+                    }
+                    if(grid[row][col] == 1) {
+                        if((bottomLeft == 2) || (bottomLeft == 3 )) {
+                            tempGrid[row][col] = 1;
+                        }
+                        else{
+                            tempGrid[row][col] = 0;
+                        }
+                    }
+                    if(grid[row][col] == 0) {
+                        if(bottomLeft == 3 ) {
+                            tempGrid[row][col] = 1;
+                        }
+                        else{
+                            tempGrid[row][col] = 0;
+                        }
+                }
+            }
+             else if ((row == (this.rows - 1)) && (col == (this.cols - 1))){
+                    int bottomRight = 0;
+                    if(grid[row - 1][col] == 1){
+                        bottomRight++;
+                    }
+                    if(grid[row - 1][col - 1] == 1) {
+                        bottomRight++;
+                    }
+                    if(grid[row][col - 1] == 1) {
+                        bottomRight++;
+                    }
+                    if(grid[row][col] == 1) {
+                        if((bottomRight == 2) || (bottomRight == 3 )) {
+                            tempGrid[row][col] = 1;
+                        }
+                        else{
+                            tempGrid[row][col] = 0;
+                        }
+                    }
+                    if(grid[row][col] == 0) {
+                        if(bottomRight == 3 ) {
+                            tempGrid[row][col] = 1;
+                        }
+                        else{
+                            tempGrid[row][col] = 0;
+                        }
+                }
+            }
+             else if(row == 0) {
+                    int topRow = 0;
+                    if(grid[row + 1][col] == 1){
+                        topRow++;
+                    }
+                    if(grid[row + 1][col - 1] == 1) {
+                        topRow++;
+                    }
+                    if(grid[row][col - 1] == 1) {
+                        topRow++;
+                    }
+                    if(grid[row + 1][col + 1] == 1) {
+                        topRow++;
+                    }
+                    if(grid[row][col + 1] == 1) {
+                        topRow++;
+                    }
+                    if(grid[row][col] == 1) {
+                        if((topRow == 2) || (topRow == 3 )) {
+                            tempGrid[row][col] = 1;
+                        }
+                        else{
+                            tempGrid[row][col] = 0;
+                        }
+                    }
+                    if(grid[row][col] == 0) {
+                        if(topRow == 3 ) {
+                            tempGrid[row][col] = 1;
+                        }
+                        else{
+                            tempGrid[row][col] = 0;
+                        }
+                }
+            }
+               
+                else if(row == (this.rows - 1)) {
+                    int bottomRow = 0;
+                    if(grid[row - 1][col] == 1){
+                        bottomRow++;
+                    }
+                    if(grid[row - 1][col - 1] == 1) {
+                        bottomRow++;
+                    }
+                    if(grid[row][col - 1] == 1) {
+                        bottomRow++;
+                    }
+                    if(grid[row - 1][col + 1] == 1) {
+                        bottomRow++;
+                    }
+                    if(grid[row][col + 1] == 1) {
+                        bottomRow++;
+                    }
+                    if(grid[row][col] == 1) {
+                        if((bottomRow == 2) || (bottomRow == 3 )) {
+                            tempGrid[row][col] = 1;
+                        }
+                        else{
+                            tempGrid[row][col] = 0;
+                        }
+                    }
+                    if(grid[row][col] == 0) {
+                        if(bottomRow == 3 ) {
+                            tempGrid[row][col] = 1;
+                        }
+                        else{
+                            tempGrid[row][col] = 0;
+                        }
+                    }
+                }
+                else if(col ==(this.cols - 1)) {
+                    int rightCol = 0;
+                    if(grid[row + 1][col] == 1){
+                        rightCol++;
+                    }
+                    if(grid[row + 1][col - 1] == 1) {
+                        rightCol++;
+                    }
+                    if(grid[row - 1][col - 1] == 1) {
+                        rightCol++;
+                    }
+                    if(grid[row][col - 1] == 1) {
+                        rightCol++;
+                    }
+                    if(grid[row - 1][col] == 1) {
+                        rightCol++;
+                    }
+                    if(grid[row][col] == 1) {
+                        if((rightCol == 2) || (rightCol == 3 )) {
+                            tempGrid[row][col] = 1;
+                        }
+                        else{
+                            tempGrid [row][col] = 0;
+                        }
+                    }
+                    if(grid[row][col] == 0) {
+                        if(rightCol == 3 ) {
+                            tempGrid[row][col] = 1;
+                        }
+                        else{
+                            tempGrid[row][col] = 0;
+                        }
+                    }
+                }
+                else if ((row != 0) && (row < (this.rows - 1)) && (col != 0) && (col < (this.cols - 1))) {
+                    int middle = 0;
+                    if(grid[row + 1][col] == 1){
+                        middle++;
+                    }
+                    if(grid[row + 1][col - 1] == 1) {
+                        middle++;
+                    }
+                    if(grid[row - 1][col - 1] == 1) {
+                        middle++;
+                    }
+                    if(grid[row][col - 1] == 1) {
+                        middle++;
+                    }
+                    if(grid[row - 1][col] == 1) {
+                        middle++;
+                    }
+                    if(grid[row + 1][col + 1] == 1) {
+                        middle++;
+                    }
+                    if(grid[row][col + 1] == 1) {
+                        middle++;
+                    }
+                    if(grid[row - 1][col + 1] == 1) {
+                        middle++;
+                    }
+                    if(grid[row][col] == 1) {
+                        if((middle == 2) || (middle == 3 )) {
+                            tempGrid[row][col] = 1;
+                        }
+                        else{
+                            tempGrid[row][col] = 0;
+                        }
+                    }
+                    if(grid[row][col] == 0) {
+                        if(middle == 3 ) {
+                            tempGrid[row][col] = 1;
+                        }
+                        else{
+                            tempGrid[row][col] = 0;
+                        }
+                    }
+                }
+                else if ((row < this.rows - 1) && (row != 0) && (col == 0) ) {
+                    System.err.println("The cur row is " + row + " and the last row is " + this.rows);
+                    int leftCol = 0;
+                    if(grid[row + 1][col] == 1){
+                        leftCol++;
+                    }
+                    if(grid[row + 1][col + 1] == 1) {
+                        leftCol++;
+                    }
+                    if(grid[row - 1][col + 1] == 1) {
+                        leftCol++;
+                    }
+                    if(grid[row][col + 1] == 1) {
+                        leftCol++;
+                    }
+                    if(grid[row - 1][col] == 1) {
+                        leftCol++;
+                    }
+                    if(grid[row][col] == 1) {
+                        if((leftCol == 2) || (leftCol == 3 )) {
+                            tempGrid[row][col] = 1;
+                        }
+                        else{
+                            tempGrid[row][col] = 0;
+                        }
+                    }
+                    if(grid[row][col] == 0) {
+                        if(leftCol == 3 ) {
+                            tempGrid[row][col] = 1;
+                        }
+                        else{
+                            tempGrid[row][col] = 0;
+                        }
+                    }
+                }
+            }
+        }
         //3 Copy the values of your temporary grid to the real grid
-
+        this.grid = tempGrid;
 
         //don't mess with this part
         repaint();
